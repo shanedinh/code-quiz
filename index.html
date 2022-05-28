@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>javascript coding quiz</title>
+</head>
+<body>
+    <!-- start button -->
+    <div class="start-btn">
+        <button>Start Quiz</button>
+    </div>
+    <!-- quiz info/rules -->
+    <div class="quiz-info-box">
+
+        <div class="info-title">Quiz Rules</div>
+
+        <div class="rules_list">
+            <ol>
+                <li>You will have 15 seconds per question.</li>
+                <li>once you select your answer it can't be changed</li>
+                <li>If you answer incorrectly 3 seconds will be subtracted from your time</li>
+
+            </ol>
+        </div>   
+
+        <div class="nav-buttons"><button class="quit">Exit Quiz</button> <button class="next">Next</button>
+        </div>
+
+    </div>
+    <!-- quiz box -->
+    <div class="quiz-box">
+        <header>
+            <div class=quiz-title>
+                <h1>JavaScript Fundamentals Quiz</h1>
+            </div>
+            <div class="timer">
+                <div class="time-left">Time left:</div>
+                <div class="timer-seconds">15</div>
+            </div>
+     </header>
+     <section>
+         <div class="question-text">
+             <p>1. JavaScript is a ___ -side programming language.</p>
+         </div>
+         <div class="answer-options">
+             <div class="option">a. shore</p></div>
+             <div class="option" id="correct">b. client</p></div>
+             <div class="option">c. server</p></div>
+             <div class="option">d. dark</p></div>
+         </div>
+     </section>
+     <footer>
+         <div class="question-number">Question 1 of 5</div>
+     </footer>
+    </div>
+</body>
+</html>

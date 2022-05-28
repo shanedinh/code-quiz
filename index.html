@@ -8,10 +8,13 @@
     <title>javascript coding quiz</title>
 </head>
 <body>
-    <!-- start button -->
-    <div class="start-btn">
-        <button>Start Quiz</button>
-    </div>
+
+    <!-- enter button -->
+    <!-- <div class="enter">
+        <button>Enter Quiz</button>
+    </div> -->
+
+
     <!-- quiz info/rules -->
     <div class="quiz-info-box">
 
@@ -26,10 +29,13 @@
             </ol>
         </div>   
 
-        <div class="nav-buttons"><button class="quit">Exit Quiz</button> <button class="next">Next</button>
+        <!-- start button -->
+        <button class="start">Start</button>
         </div>
 
     </div>
+
+
     <!-- quiz box -->
     <div class="quiz-box">
         <header>
@@ -43,18 +49,31 @@
      </header>
      <section>
          <div class="question-text">
-             <p>1. JavaScript is a ___ -side programming language.</p>
+             <!-- <p>1. JavaScript is a ___ -side programming language.</p> -->
          </div>
-         <div class="answer-options">
-             <div class="option">a. shore</p></div>
+         <div class="answer-text">
+             <!-- <div class="option">a. shore</p></div>
              <div class="option" id="correct">b. client</p></div>
              <div class="option">c. server</p></div>
-             <div class="option">d. dark</p></div>
+             <div class="option">d. dark</p></div> -->
          </div>
      </section>
      <footer>
-         <div class="question-number">Question 1 of 5</div>
+         <div class="question-number"><p>Question 1 of 5</p></div>
      </footer>
     </div>
+
+
+    <!-- quiz results -->
+    <section>
+        <div class="quiz-results">
+            <div class="completed">Quiz Complete</div>
+            <div class="score">You got 3 out of 5 questions correct.</div>
+            <div class="save-option">Would you like to save your score?</div>
+            <button type="button" class="yes-save">Yes</button>
+            <button type="button" class="no-save">No</button>
+        </div>
+    </section>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

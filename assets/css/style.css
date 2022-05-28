@@ -3,31 +3,35 @@ body{
     font-family: Verdana, sans-serif;
 }
 
-.start-btn, .quiz-info-box, .quiz-box{
+.enter, .quiz-info-box, .quiz-box, .quiz-results{
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
 
-.start-btn button{
+/* .enter button {
     font-size: 30px;
     font-weight: bold;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-}
+    background: #9BBDF9;
+    color: #374A67;
+    box-shadow: 5px 5px;
+} */
 
 .quiz-info-box{
-    display: none;
     width: 600px;
     background: #FFF;
     border-radius: 5px;
+    box-shadow: 5px 5px;
+    border: 1px solid #000;
 }
 
-.quiz-info-box .info-title{
+.quiz-info-box .info-title, .quiz-results .completed{
     height: 60px;
-    border-bottom: 1px solid #F28123;
+    border-bottom: 1px solid #59656F;
     display: flex;
     align-items: center;
     font-size: 30px;
@@ -43,28 +47,30 @@ body{
 .quiz-info-box li{
     margin: 5px 0;
     font-size: 17px;
-    color: #FFF;
+    color: #000;
 }
 
-.nav-buttons{
+.start{
     position: relative;
     left: 40%;
     padding: 0px 0px 20px 0px;
 }
 
-.nav-buttons button{
+.quiz-info-box .start {
     margin: 0 5px;
     height: 40px;
     width: 80px;
-    font-size: 12px;
-    padding: 5px 10px;
+    padding: 10px;
+    font-size: 14px;
     border-radius: 5px;
+    align-content: center;
     cursor: pointer;
     justify-content: center;
+    margin-bottom: 15px;
 }
 
 .quiz-box{
-    /*display: none;*/
+    display: none;
     width: 600px;
     background: #FFF;
     border-radius: 5px;
@@ -77,7 +83,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #F28123;
+    border-bottom: 1px solid #59656F;
 }
 
 .quiz-box .quiz-title{
@@ -112,6 +118,8 @@ body{
 }
 
 .quiz-box .question-text{
+    margin-top: 20px;
+    margin-bottom: 20px;
     color: #000;
     font-weight: bold;
 }
@@ -119,18 +127,18 @@ body{
     color: #000;
 }
 
-.quiz-box section .answer-options{
+.quiz-box section .answer-text{
     padding: 20px 0;
     display: block;
     padding: 15px 10px 5px 10px;
 }
 
-/* .quiz-box section .answer-options{
+/* .quiz-box section .answer-text{
     background: #C3423F;
     padding: 
 } */
 
-section .answer-options .option{
+section .answer-text .option{
     background: #FFF;
     border: 1px solid #59656F;
     border-radius: 5px;
@@ -141,7 +149,37 @@ section .answer-options .option{
     cursor: pointer;
 }
 
-section .answer-options .option:hover{
+section .answer-text .option:hover{
     background: #9BBDF9;
     font-weight: bold;
+}
+
+footer {
+    text-align: center;
+}
+
+.quiz-results {
+     display: none; 
+    width: 600px;
+    background: #FFF;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+.quiz-results .score, .quiz-results .save-option {
+    padding: 5px 0 10px 0;
+    background: #FFF;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.quiz-results button{
+    position: relative;
+    left: 40%;
+    display: inline;
+    padding: 5px 10px 5px 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }

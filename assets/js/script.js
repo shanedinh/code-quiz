@@ -1,165 +1,216 @@
-var startButton = document.querySelector(".start")
-var infoBox = document.querySelector(".quiz-info-box")
-var quizBox = document.querySelector(".quiz-box")
-var quizResults = document.querySelector(".quiz-results")
-var timeText = document.querySelector(".time-left")
-var timeCount = document.querySelector(".timer-seconds")
+var headerEl = document.querySelector("#header");
+var timeEl = document.querySelector("p.time");
+var scoreEl = document.querySelector("#score");
+var questionEl = document.querySelector("#question");
+var questionsEl = document.querySelector("#questions");
+var welcomeEl = document.querySelector("#welcome");
+var rightOrWrongEl = document.querySelector("#rightOrWrong");
+var finalEl = document.querySelector("#final");
+var initialsInput = document.querySelector("#initials");
+var highscoresEl = document.querySelector("#highscores");
+var scoreListEl = document.querySelector("#score-list");
+var leadBoardBtn = document.querySelector("#leadboard");
+var scoreList = [];
+var secondsLeft = 60;
+var answer1Btn = document.querySelector("#answerA");
+var answer2Btn = document.querySelector("#answerB");
+var answer3Btn = document.querySelector("#answerC");
+var answer4Btn = document.querySelector("#answerD");
+var startBtn = document.querySelector("#start");
+var answerBtn = document.querySelectorAll("button.answerBtn");
+var submitScrBtn = document.querySelector("#submit-score");
+var viewScrBtn = document.querySelector("#view-scores");
+var backBtn = document.querySelector("#back");
+
+//questions
 
 var questions = [
-    { number: 1,
-      title: 'JavaScript is a ___ -side programming language.',
-      choices: ['shore', 'client', 'server', 'dark'],
-      answer: 'client',
-    },
-    { number: 2,
-      title: 'The condition in an if / else statement is enclosed within ____.',
-      choices: ['quotes', 'curly brackets', 'parentheses', 'square brackets'],
-      answer: 'parentheses',
-    },
-    { number: 3,
-      title: 'Arrays in JavaScript can be used to store ____.',
-      choices: [
-        'numbers and strings',
-        'other arrays',
-        'booleans',
-        'all of the above',
-      ],
-      answer: 'all of the above',
-    },
-    { number: 4,
-      title:
-        'String values must be enclosed within ____ when being assigned to variables.',
-      choices: ['commas', 'curly brackets', 'quotes', 'parentheses'],
-      answer: 'quotes',
-    },
-    { number: 5,
-      title:
-        'A very useful tool used during development and debugging for printing content to the debugger is:',
-      choices: ['JavaScript', 'terminal / bash', 'for loops', 'console.log'],
-      answer: 'console.log',
-    }];
+  {
+    question: "JavaScript is a ___ -side programming language.",
+    answers: ["1. shore", "2. client", "3. server", "4. dark"],
+    correctAnswer: "1",
+  },
+  {
+    question:
+      "The condition in an if / else statement is enclosed within ____.",
+    answers: [
+      "1. quotes",
+      "2. curly brackets",
+      "3. parentheses",
+      "4. square brackets",
+    ],
+    correctAnswer: "2",
+  },
+  {
+    question: "Arrays in JavaScript can be used to store ____.",
+    answers: [
+      "1. numbers and strings",
+      "2. other arrays",
+      "3. booleans",
+      "4. all of the above",
+    ],
+    correctAnswer: "3",
+  },
+  {
+    question:
+      "String values must be enclosed within ____ when being assigned to variables.",
+    answers: ["1. commas", "2. curly brackets", "3. quotes", "4. parentheses"],
+    correctAnswer: "2",
+  },
+  {
+    question:
+      "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answers: [
+      "1. JavaScript",
+      "2. terminal/bash",
+      "3. for loops",
+      "4. console.log",
+    ],
+    correctAnswer: "3",
+  },
+];
 
- var nextButton = document.querySelector(".next");
- const footerCount = document.querySelector(".question-number");
- var q_count = 0;
- var q_total = 4;
- var q_number = 0;
- var timeValue = 15;
- var counter;
- var userScore = 0;
+//clock
 
+function countDown() {
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    timeEl.textContent = `⏱: ${secondsLeft}s`;
 
-startButton.onclick = function() {
-    nextButton.style.display = "block";
-    infoBox.style.display = "none";
-    console.log("start button clicked!");
-    quizBox.style.display = "block";
-    showQuestions(q_count);
-    startTimer(15);
+    if (secondsLeft === 0 || questionCount === questions.length) {
+      clearInterval(timerInterval);
+      questionsEl.style.display = "none";
+      finalEl.style.display = "block";
+      scoreEl.textContent = secondsLeft;
+    }
+  }, 1000);
 }
 
-nextButton.onclick = function() {
-    if (q_count < 5) {
-        q_count++;
-        q_number++;
-        showQuestions(q_count);
-        clearInterval(counter);
-        startTimer(timeValue);
-        nextButton.style.display = "block";
-    }
-    else {
-        clearInterval(counter);
-        showResult();
-    }
+//Start Game Function
+
+//WHEN I click the start button
+//THEN a timer starts and I am presented with a question
+
+function startGame() {
+  welcomeEl.style.display = "none";
+  headerEl.style.display = "none";
+  questionsEl.style.display = "block";
+  questionCount = 0;
+
+  countDown();
+  setQuestion(questionCount);
 }
 
-
-
-
-function showQuestions(index) {
-    var choiceText = document.querySelector(".answer-text")
-    var questionText = document.querySelector(".question-text")
-
-    var q_number = questions[index].number + ". " + questions[index].title;
-        
-    
-    var optionNumber = '<div class="option"><span> '+ questions[index].choices[0] +'</input></span></div>'
-    + '<div class="option"><span>'+ questions[index].choices[1] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].choices[2] +'</span></div>'
-    + '<div class="option"><span>'+ questions[index].choices[3] +'</span></div>';
-    
-    questionText.innerHTML = q_number;
-    choiceText.innerHTML = optionNumber; // new div inside option tag
-
-    for (i = 0; i < choiceText.length; i++) {
-        choiceText[i].setAttribute('onclick', optionSelected(this));
-    }
+function setQuestion(id) {
+  if (id < questions.length) {
+    questionEl.textContent = questions[id].question;
+    answer1Btn.textContent = questions[id].answers[0];
+    answer2Btn.textContent = questions[id].answers[1];
+    answer3Btn.textContent = questions[id].answers[2];
+    answer4Btn.textContent = questions[id].answers[3];
+  }
 }
 
-function optionSelected(answer){
-    clearInterval(counter); //clear counter
-    clearInterval(counterLine); //clear counterLine
-    let userAnswer = answer.textContent; //getting user selected option
-    let correctAns = questions[q_count].answer; //getting correct answer from array
-    const allOptions = choiceText.children.length; //getting all option items
-    
-    if(userAnswer == correctAns){ //if user selected option is equal to array's correct answer
-        userScore += 1; //upgrading score value with 1
-        answer.classList.add("correct"); //adding green color to correct selected option
-        answer.insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to correct selected option
-    }else{
-        answer.classList.add("incorrect"); //adding red color to correct selected option
-        answer.insertAdjacentHTML("beforeend", crossIconTag); //adding cross icon to correct selected option
-        console.log("Wrong Answer");
+//Right or Wrong consequences
 
-        for(i=0; i < allOptions; i++){
-            if(choiceText.children[i].textContent == correctAns){ //if there is an option which is matched to an array answer 
-                choiceText.children[i].setAttribute("class", "option correct"); //adding green color to matched option
-                choiceText.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
-                console.log("Auto selected correct answer.");
-            }
-        }
-    }
-    for(i=0; i < allOptions; i++){
-        choiceText.children[i].style.display = "none"; //once user select an option then disabled all options
-    }
-    nextButton.style.display = "block"; //show the next button if user selected any option
+function checkAnswers(event) {
+  event.preventDefault();
+
+  rightOrWrongEl.style.display = "block";
+  var p = document.createElement("p");
+  rightOrWrongEl.appendChild(p);
+
+  setTimeout(function () {
+    p.style.display = "none";
+  }, 1000);
+
+  //WHEN I answer a question incorrectly
+  //THEN time is subtracted from the clock
+
+  if (questions[questionCount].correctAnswer === event.target.value) {
+    p.textContent = "Correct";
+  } else if (questions[questionCount].correctAnswer !== event.target.value) {
+    secondsLeft = secondsLeft - 10;
+    p.textContent = "Incorrect";
+  }
+
+  //WHEN I answer a question
+  //THEN I am presented with another question
+
+  if (questionCount < questions.length) {
+    questionCount++;
+  }
+  setQuestion(questionCount);
 }
 
-function startTimer(time){
-    counter = setInterval(timer, 1000);
-    function timer(){
-        timeCount.textContent = time; //changing the value of timeCount with time value
-        time--; //decrement the time value
-        if(time < 9){ //if timer is less than 9
-            let addZero = timeCount.textContent; 
-            timeCount.textContent = "0" + addZero; //add a 0 before time value
-        }
-        if(time < 0){ //if timer is less than 0
-            clearInterval(counter); //clear counter
-            timeText.textContent = "Time Off"; //change the time text to time off
-            const allOptions = choiceText.children.length; //getting all option items
-            let correctAns = questions[q_count].answer; //getting correct answer from array
-            for(i=0; i < allOptions; i++){
-                if(choiceText.children[i].textContent == correctAns){ //if there is an option which is matched to an array answer
-                    choiceText.children[i].setAttribute("class", "option correct"); //adding green color to matched option
-                    choiceText.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
-                    console.log("Time Off: Auto selected correct answer.");
-                }
-            }
-            for(i=0; i < allOptions; i++){
-                choiceText.children[i].classList.add("disabled"); //once user select an option then disabled all options
-            }
-            nextButton.style.display = "block"; //show the next button if user selected any option
-        }
+//leaderboard
+
+function addScore(event) {
+  event.preventDefault();
+
+  finalEl.style.display = "none";
+  highscoresEl.style.display = "block";
+
+  var init = initialsInput.value.toUpperCase();
+  scoreList.push({ initials: init, score: secondsLeft });
+
+  scoreList = scoreList.sort((a, b) => {
+    if (a.score < b.score) {
+      return 1;
+    } else {
+      return -1;
     }
+  });
+
+  scoreListEl.innerHTML = "";
+  for (var i = 0; i < scoreList.length; i++) {
+    var li = document.createElement("li");
+    li.textContent = `${scoreList[i].initials}: ${scoreList[i].score}`;
+    scoreListEl.append(li);
+  }
+
+  storeScores();
+  displayScores();
 }
 
-function showResult() {
-    infoBox.style.display = "none";
-    quizBox.style.display = "none";
-    quizResults.style.display = "block";
-    var scoreText = quizResults.querySelector(".score");
-
-    scoreText.innerHTML = userScore;
+function storeScores() {
+  localStorage.setItem("scoreList", JSON.stringify(scoreList));
 }
+
+function displayScores() {
+  var storedScoreList = JSON.parse(localStorage.getItem("scoreList"));
+
+  if (storedScoreList !== null) {
+    scoreList = storedScoreList;
+  }
+}
+
+//button functions
+
+startBtn.addEventListener("click", startGame);
+
+answerBtn.forEach((item) => {
+  item.addEventListener("click", checkAnswers);
+
+  submitScrBtn.addEventListener("click", addScore);
+});
+
+backBtn.addEventListener("click", function () {
+  highscoresEl.style.display = "none";
+  welcomeEl.style.display = "block";
+  headerEl.style.display = "block";
+  secondsLeft = 60;
+  timeEl.textContent = `⏱: ${secondsLeft}s`;
+});
+
+viewScrBtn.addEventListener("click", function () {
+  if (highscoresEl.style.display === "none") {
+    highscoresEl.style.display = "block";
+    welcomeEl.style.display = "none";
+    headerEl.style.display = "none";
+  } else if (highscoresEl.style.display === "block") {
+    highscoresEl.style.display = "none";
+  } else {
+    return alert("Nobody here yet");
+  }
+});

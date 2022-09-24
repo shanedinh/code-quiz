@@ -1,83 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>javascript coding quiz</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
 
-    <!-- enter button -->
-    <!-- <div class="enter">
-        <button>Enter Quiz</button>
-    </div> -->
+  <body>
+    <nav>
+      <p class="time">⏱: 60</p>
+    </nav>
 
+    <header>
+      <h1 id="header">The JavaScript Quiz!</h1>
+    </header>
 
-    <!-- quiz info/rules -->
-    <div class="quiz-info-box">
-
-        <div class="info-title">Quiz Rules</div>
-
-        <div class="rules_list">
-            <ol>
-                <li>You will have 15 seconds per question.</li>
-                <li>once you select your answer it can't be changed</li>
-                <li>If you answer incorrectly 3 seconds will be subtracted from your time</li>
-
-            </ol>
-        </div>   
-
-        <!-- start button -->
-        <button class="start">Start</button>
-        </div>
-
+    <!--Start Button-->
+    <div class="wrapper">
+      <div id="welcome" class="begin">
+        <p>
+          Take this timed JavaScript coding quiz and see how well you do!
+          <br />You will have 60 seconds to finish the entire quiz. <br />It is
+          5 questions long.
+        </p>
+        <br />
+        <br />
+        <br />
+        <button id="start">Start Quiz</button>
+        <br />
+        <br />
+        <br /><button id="view-scores" type="button">Leaderboard</button>
+      </div>
     </div>
+    <!--try hiding elements first, have start() make new questions visable? hidden/visable elements-->
 
+    <!--Trivia Questions-->
 
-    <!-- quiz box -->
-    <div class="quiz-box">
-        <header>
-            <div class=quiz-title>
-                <h1>JavaScript Fundamentals Quiz</h1>
-            </div>
-            <div class="timer">
-                <div class="time-left">Time left:</div>
-                <div class="timer-seconds">15</div>
-            </div>
-     </header>
-     <section>
-         <div class="question-text">
-             <!-- <p>1. JavaScript is a ___ -side programming language.</p> -->
-         </div>
-         <div class="answer-text">
-             <!-- <div class="option">a. shore</p></div>
-             <div class="option" id="correct">b. client</p></div>
-             <div class="option">c. server</p></div>
-             <div class="option">d. dark</p></div> -->
-         </div>
-     </section>
-     <footer>
-         <div class="question-number">
-             
-         </div>
-         <!-- <button class="restart">Restart</button> -->
-         <button class="next">Next</button>
-     </footer>
-    </div>
-
-
-    <!-- quiz results -->
-    <section>
-        <div class="quiz-results">
-            <div class="completed">Quiz Complete</div>
-            <div class="score">You got 3 out of 5 questions correct.</div>
-            <div class="save-option">Would you like to save your score?</div>
-            <button type="button" class="yes-save">Yes</button>
-            <button type="button" class="no-save">No</button>
-        </div>
+    <section id="questions">
+      <br />
+      <br />
+      <br />
+      <h2 id="question">Question</h2>
+      <ul>
+        <br />
+        <br />
+        <br />
+        <li>
+          <button id="answerA" value="0" type="button" class="answerBtn">
+            Answer1
+          </button>
+        </li>
+        <li>
+          <button id="answerB" value="1" type="button" class="answerBtn">
+            Answer2
+          </button>
+        </li>
+        <li>
+          <button id="answerC" value="2" type="button" class="answerBtn">
+            Answer3
+          </button>
+        </li>
+        <li>
+          <button id="answerD" value="3" type="button" class="answerBtn">
+            Answer4
+          </button>
+        </li>
+      </ul>
+      <div id="rightOrWrong"></div>
     </section>
+
+    <!--Final Score-->
+
+    <section id="final">
+      <h2>Finish!</h2>
+      <p>Your final score is:<span id="score">0</span></p>
+      <p>
+        Enter initials:<input placeholder="initials" id="initials" />
+        <button id="submit-score">Submit</button>
+      </p>
+    </section>
+
+    <!--Leaderboard-->
+
+    <section id="highscores">
+      <h2>Highscores</h2>
+      <ol id="score-list"></ol>
+      <button id="back">Return Home</button>
+    </section>
+
     <script src="./assets/js/script.js"></script>
-</body>
+  </body>
 </html>
